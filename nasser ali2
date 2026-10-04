@@ -1,0 +1,88 @@
+class Person
+{
+    public string Name;
+
+    public Person(string name)
+    {
+        Name = name;
+    }
+
+    public virtual void DisplayInfo()
+    {
+        Console.WriteLine("Name: " + Name);
+    }
+}
+
+class Student : Person
+{
+    public int StudentId;
+
+    public Student(string name, int studentId) : base(name)
+    {
+        StudentId = studentId;
+    }
+
+    public override void DisplayInfo()
+    {
+        Console.WriteLine("Student: " + Name + ", ID: " + StudentId);
+    }
+}
+
+class Employee : Person
+{
+    public double Salary;
+
+    public Employee(string name, double salary) : base(name)
+    {
+        Salary = salary;
+    }
+
+    public override void DisplayInfo()
+    {
+        Console.WriteLine("Employee: " + Name + ", Salary: " + Salary);
+    }
+}
+
+class Teacher : Employee
+{
+    public string CourseName;
+
+    public Teacher(string name, double salary, string courseName)
+        : base(name, salary)
+    {
+        CourseName = courseName;
+    }
+
+    public override void DisplayInfo()
+    {
+        Console.WriteLine("Teacher: " + Name +
+                          ", Course: " + CourseName);
+    }
+}
+
+class Program
+{
+    static void ShowPerson(Person person)
+    {
+        person.DisplayInfo();
+    }
+
+    static void Main()
+    {
+        List<Person> people = new List<Person>();
+
+        people.Add(new Person("Ali"));
+        people.Add(new Student("Ahmed", 101));
+        people.Add(new Employee("Omar", 5000));
+        people.Add(new Teacher("Sara", 7000, "C#"));
+
+        foreach (Person person in people)
+        {
+            person.DisplayInfo();
+            Console.WriteLine("Type: " + person.GetType());
+            Console.WriteLine();
+        }
+
+        ShowPerson(people[1]);
+    }
+}
